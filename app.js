@@ -612,37 +612,13 @@
       showMem();
     }
 
-    // --- 最後の締めの一文（バッチリ決める書き下ろし）---
-    // ロール終盤、思い出モンタージュを止めてから、画面中央に
-    // ハッキリ（濃いめ）と一文を浮かび上がらせて締める。
-    // ロールの実アニメ時間（通常82s／省モーション時40s）を読み、
-    // その終わり12秒前に出すことで、どちらの設定でも必ず表示される。
-    const rollEl = stage.querySelector("#creditsRoll");
-    let rollDur = 82;
-    const durStr = getComputedStyle(rollEl).animationDuration; // 例: "82s"
-    const parsed = parseFloat(durStr);
-    if (!isNaN(parsed) && parsed > 0) rollDur = parsed;
-    const finaleAt = Math.max(2, rollDur - 12) * 1000;
-    const finaleTimer = setTimeout(() => {
-      if (memInterval) clearInterval(memInterval); // 走馬灯を止める
-      // 締めの一文だけが見えるよう、ロールと思い出をフェードアウトで消す。
-      stage.classList.add("credits--finale");
-      const fin = document.createElement("div");
-      fin.className = "credits__closing";
-      fin.innerHTML = `
-        <p>笑っていれば、だいたいのことは、なんとかなる。</p>
-        <p class="credits__closing-sub">― またあした、いってらっしゃい。</p>`;
-      stage.appendChild(fin);
-      requestAnimationFrame(() => fin.classList.add("credits__closing--on"));
-    }, finaleAt);
-    memTimers.push(() => clearTimeout(finaleTimer));
-
     // --- 合成音（荘厳なパッド和音） ---
     const stopAudio = startCreditsMusic();
 
-    // --- 終了処理（ロール終了 or スキップ） ---
+    // --- 終了処理（スキップ or 最終演出のあと） ---
     const roll = stage.querySelector("#creditsRoll");
     let ended = false;
+    let interactiveActive = false; // 最後の問題が出たら自動終了させない
     const end = () => {
       if (ended) return;
       ended = true;
@@ -654,8 +630,95 @@
         renderHome();
       }, 700);
     };
-    roll.addEventListener("animationend", end);
+    // ロールが流れ切っても、最後の演出中は終了しない（演出が締めを担う）
+    roll.addEventListener("animationend", () => {
+      if (!interactiveActive) end();
+    });
     stage.querySelector("#creditsSkip").addEventListener("click", end);
+
+    // --- 最後の問題（本人に答えを選ばせるインタラクティブな締め）---
+    // ロール終盤でいったん「問題画面」に戻り、たった一つの選択肢
+    // 「Family」を本人が選ぶことで、エンドロールの最後の言葉が完成する。
+    let rollDur = 82;
+    const parsed = parseFloat(getComputedStyle(roll).animationDuration);
+    if (!isNaN(parsed) && parsed > 0) rollDur = parsed;
+    const finaleAt = Math.max(2, rollDur - 14) * 1000;
+
+    const finaleTimer = setTimeout(() => {
+      interactiveActive = true;
+      if (memInterval) clearInterval(memInterval);
+      // ロールと思い出を消して、暗転の中に問題だけを出す
+      stage.classList.add("credits--finale");
+
+      const quiz = document.createElement("div");
+      quiz.className = "finale-quiz";
+      quiz.innerHTML = `
+        <div class="finale-quiz__label">最後の問題</div>
+        <div class="finale-quiz__prompt">Yoko が、<br>いちばん大切にしているものは？</div>
+        <button class="finale-quiz__choice" id="finaleChoice">Family</button>
+      `;
+      stage.appendChild(quiz);
+      requestAnimationFrame(() => quiz.classList.add("finale-quiz--on"));
+
+      document
+        .getElementById("finaleChoice")
+        .addEventListener("click", () => playFinaleAnswer(stage, quiz, end), {
+          once: true,
+        });
+    }, finaleAt);
+    memTimers.push(() => clearTimeout(finaleTimer));
+  }
+
+  // 「Family」を選んだあとの、感動の締めシークエンス。
+  function playFinaleAnswer(stage, quiz, end) {
+    // 1) 選択肢を「正解」に光らせる
+    const choice = quiz.querySelector(".finale-quiz__choice");
+    choice.classList.add("finale-quiz__choice--correct");
+
+    // 2) 少し余韻 → 問題を消す → 答えのシークエンスを順に灯す
+    const seq = document.createElement("div");
+    seq.className = "finale-answer";
+    seq.innerHTML = `
+      <div class="finale-answer__line finale-answer__main">I love my family.</div>
+      <div class="finale-answer__names">
+        <span class="finale-answer__name" data-i="0">Aya</span>
+        <span class="finale-answer__dot" data-i="0">・</span>
+        <span class="finale-answer__name" data-i="1">Oto</span>
+        <span class="finale-answer__dot" data-i="1">・</span>
+        <span class="finale-answer__name" data-i="2">Mana</span>
+      </div>
+      <div class="finale-answer__line finale-answer__sub">せかいで いちばん にぎやかな、わたしの宝物。</div>
+      <div class="finale-answer__line finale-answer__bye">またあした。</div>
+    `;
+    stage.appendChild(seq);
+
+    const reveal = (sel, delay) =>
+      setTimeout(() => {
+        const el = seq.querySelector(sel);
+        if (el) el.classList.add("is-on");
+      }, delay);
+    const revealAll = (sel, delay, step) => {
+      seq.querySelectorAll(sel).forEach((el, i) => {
+        setTimeout(() => el.classList.add("is-on"), delay + i * step);
+      });
+    };
+
+    // タイムライン（ミリ秒）
+    setTimeout(() => quiz.classList.add("finale-quiz--gone"), 900);
+    reveal(".finale-answer__main", 1700); // 「I love my family.」
+    revealAll(".finale-answer__name, .finale-answer__dot", 3600, 600); // 名前が一つずつ灯る
+    reveal(".finale-answer__sub", 6400); // 「わたしの宝物。」
+    reveal(".finale-answer__bye", 8800); // 「またあした。」
+
+    // 余韻のあと、そっと「とじる」を出す（自動では戻さない）
+    setTimeout(() => {
+      const close = document.createElement("button");
+      close.className = "btn btn--green finale-answer__close";
+      close.textContent = "とじる";
+      close.addEventListener("click", end, { once: true });
+      seq.appendChild(close);
+      requestAnimationFrame(() => close.classList.add("is-on"));
+    }, 10800);
   }
 
   // Web Audio API で、荘厳なパッド（数音の和音）をその場で合成する。
