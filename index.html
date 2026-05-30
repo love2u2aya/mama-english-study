@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ママえいご | Mama English</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ===== ヘッダー（ステータスバー） ===== -->
+  <header class="topbar" id="topbar">
+    <div class="topbar__inner">
+      <div class="stat stat--streak" title="連続学習日数">
+        <img class="stat__icon" src="assets/streak.png" alt="" />
+        <span id="streakCount">0</span>
+      </div>
+      <div class="stat stat--xp" title="経験値">
+        <img class="stat__icon" src="assets/xp.png" alt="" />
+        <span id="xpCount">0</span>
+      </div>
+      <div class="stat stat--hearts" title="ライフ">
+        <img class="stat__icon" src="assets/heart.png" alt="" />
+        <span id="heartCount">5</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="app">
+    <!-- ホーム画面（レッスン一覧）は JS で描画 -->
+  </main>
+
+  <!-- ===== レッスン下部のチェックボタンなどを差し込む領域 ===== -->
+  <footer class="footer" id="footer" hidden></footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
