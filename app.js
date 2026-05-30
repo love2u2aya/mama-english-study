@@ -558,11 +558,11 @@
         // ランダムな高さに配置して走馬灯っぽく
         span.style.top = 12 + Math.random() * 60 + "%";
         memBox.appendChild(span);
-        // フェードアウト後に除去
-        setTimeout(() => span.remove(), 4200);
+        // フェードアウト後に除去（CSSのmemory-fade 5.6sに合わせる）
+        setTimeout(() => span.remove(), 5600);
         mi++;
       };
-      const iv = setInterval(showMem, 1400);
+      const iv = setInterval(showMem, 2000);
       memTimers.push(() => clearInterval(iv));
       showMem();
     }

@@ -357,9 +357,9 @@ main {
   white-space: nowrap;
   font-size: clamp(13px, 4vw, 20px);
   font-style: italic;
-  color: rgba(245,241,230,.18);
+  color: rgba(245,241,230,.32);
   letter-spacing: .04em;
-  animation: memory-fade 4.2s ease forwards;
+  animation: memory-fade 5.6s ease forwards;
 }
 @keyframes memory-fade {
   0%   { opacity: 0; transform: translateX(-50%) scale(.96); }
@@ -376,22 +376,24 @@ main {
   z-index: 2;
   text-align: center;
   padding: 0 24px;
-  animation: roll-up 46s linear forwards;
+  animation: roll-up 82s linear forwards;
 }
 @keyframes roll-up {
   from { transform: translateY(0); }
   to   { transform: translateY(calc(-100% - 100vh)); }
 }
 
-.credits__title-card { margin: 0 0 80px; }
+/* タイトルの前後にたっぷり余白を取り、背景の思い出文字が見える「間」をつくる */
+.credits__title-card { margin: 60vh 0 60vh; }
 .credits__movie-label { font-size: 14px; letter-spacing: .3em; color: #c9b681; }
 .credits__movie-title { font-size: clamp(24px, 7vw, 40px); margin: 12px 0 0; font-weight: 700; }
 
-.credits__block { margin: 0 0 56px; line-height: 1.9; }
-.credits__role { font-size: 13px; letter-spacing: .25em; color: #c9b681; margin-bottom: 8px; }
-.credits__name { font-size: clamp(16px, 4.5vw, 22px); }
+/* 項目どうしの間隔を大きく空ける（ここが「背景だけ」の時間になる） */
+.credits__block { margin: 0 0 46vh; line-height: 2.0; }
+.credits__role { font-size: 13px; letter-spacing: .25em; color: #c9b681; margin-bottom: 10px; }
+.credits__name { font-size: clamp(16px, 4.5vw, 22px); margin: 4px 0; }
 
-.credits__finale { margin: 90px 0 56px; line-height: 2.2; }
+.credits__finale { margin: 60vh 0 40vh; line-height: 2.4; }
 .credits__finale p { font-size: clamp(16px, 4.6vw, 22px); margin: 0; }
 .credits__wish { color: #ffd76a; margin-top: 14px !important; }
 
@@ -419,6 +421,6 @@ main {
 .credits__skip:hover { background: rgba(0,0,0,.6); }
 
 @media (prefers-reduced-motion: reduce) {
-  .credits__roll { animation-duration: 24s; }
+  .credits__roll { animation-duration: 40s; }
   .credits__memory { animation: none; opacity: .18; }
 }
