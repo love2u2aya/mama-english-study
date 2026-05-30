@@ -6,6 +6,14 @@
      - "arrange"  : 単語を並べ替えて英文をつくる
      - "listen"   : （将来用）今は choice と同じ扱い
    日本語話者が「やさしい日常英会話」を学ぶ想定。
+
+   ── 登場人物（固有名詞）の命名ルール ──
+   問題に人名を出すときは、性別・年齢に応じて次の名前を使う:
+     男性・大人  : Aya
+     男性・子ども: Oto
+     女性・大人  : Yoko
+     女性・子ども: Mana
+   新しい問題を追加するときも、この4人のキャストから選ぶこと。
    =========================================================== */
 
 const UNIT = {
@@ -51,10 +59,10 @@ const LESSONS = [
     questions: [
       {
         type: "arrange",
-        prompt: "「私の名前はアヤです。」を英語にしよう",
-        sentence: ["My", "name", "is", "Aya"],
+        prompt: "「私の名前はヨウコです。」を英語にしよう",
+        sentence: ["My", "name", "is", "Yoko"],
         distractors: ["I", "am"],
-        translation: "My name is Aya",
+        translation: "My name is Yoko",
       },
       {
         type: "choice",
@@ -106,8 +114,19 @@ const LESSONS = [
         answer: 0,
       },
       {
+        type: "choice",
+        prompt: "「彼女は私の娘のマナです。」は？",
+        choices: [
+          "She is my daughter, Mana.",
+          "He is my son, Oto.",
+          "She is my mother, Yoko.",
+          "He is my father, Aya.",
+        ],
+        answer: 0,
+      },
+      {
         type: "arrange",
-        prompt: "「私は子どもが大好きです。」を英語にしよう",
+        prompt: "「私は子どもたちが大好きです。」を英語にしよう",
         sentence: ["I", "love", "my", "kids"],
         distractors: ["like", "are"],
         translation: "I love my kids",
