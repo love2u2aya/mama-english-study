@@ -98,6 +98,13 @@
         </div>`;
     });
 
+    // ボスを一度でもクリアした人にだけ、エンドロール再生ボタンを出す。
+    // （未クリアの人にはネタバレになるので表示しない）
+    const bossCleared = !!state.completed["lesson-boss"];
+    const replay = bossCleared
+      ? `<button class="btn btn--blue btn--block replay-credits" id="replayCredits">🎬 エンドロールをもう一度見る</button>`
+      : "";
+
     app.innerHTML = `
       <div class="unit-banner">
         <div class="unit-banner__label">${escapeHtml(UNIT.label)}</div>
@@ -107,6 +114,7 @@
       <div class="path">
         ${nodes.join("")}
       </div>
+      ${replay}
     `;
 
     app.querySelectorAll(".node[data-lesson]").forEach((btn) => {
@@ -121,6 +129,14 @@
         startLesson(id, resumeData);
       });
     });
+
+    if (bossCleared) {
+      document.getElementById("replayCredits").addEventListener("click", () => {
+        topbar.hidden = true;
+        footer.hidden = true;
+        playCredits();
+      });
+    }
   }
 
   // ===========================================================
