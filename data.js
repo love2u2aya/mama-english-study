@@ -2,10 +2,12 @@
    レッスンデータ
    小さく始めるため、まずは1ユニット・3レッスン分。
    問題タイプ:
-     - "choice"   : 4択（意味を選ぶ）
+     - "choice"   : 4択（意味を選ぶ／正しい英文を選ぶ）
      - "arrange"  : 単語を並べ替えて英文をつくる
      - "listen"   : （将来用）今は choice と同じ扱い
    日本語話者が「やさしい日常英会話」を学ぶ想定。
+   ※ 出題のテンション：ちょっとふざけた感じ。ボケ選択肢で笑わせつつ、
+     正解の英文はちゃんと正しい文法にする。
 
    ── 登場人物（固有名詞）の命名ルール ──
    問題に人名を出すときは、性別・年齢に応じて次の名前を使う:
@@ -13,170 +15,180 @@
      男性・子ども: Oto
      女性・大人  : Yoko
      女性・子ども: Mana
-   新しい問題を追加するときも、この4人のキャストから選ぶこと。
 
    ── ヨウコさん一家の設定（問題の世界観） ──
      Yoko : 主人公。52歳。主婦で、パートタイムでも働いている。
-     Aya  : Yoko の夫。かっこよくて、とても素敵な夫。よく手伝ってくれる。
-     Oto  : 息子。毎日ゲームばかりしている。
-     Mana : 娘。女子高生(JK)。ダンスとボーイスカウトで毎日いそがしい。
-   問題の内容は、この一家の日常を題材にする。
+     Aya  : Yoko の夫。とてもハンサムで自慢の夫。
+            …が、コレステロールも血圧も高め。睡眠時無呼吸症候群で、
+            寝るときは CPAP（シーパップ）のマスクをつける。
+     Oto  : 息子。早稲田学院高校の3年生。新宿のマクドナルドでアルバイト。
+            夜じゅうゲームをしている。
+     Mana : 娘。文京高校の1年生。ダンスとボーイスカウトでいそがしい。
+   問題の内容は、この一家の日常をネタにする。
    =========================================================== */
 
 const UNIT = {
   label: "ユニット 1",
-  title: "ヨウコさん一家のまいにち英会話",
+  title: "ヨウコさん一家の（ちょっとカオスな）英会話",
 };
 
 const LESSONS = [
   {
     id: "lesson-1",
-    title: "わたしのこと",
+    title: "わたし、ヨウコ52歳",
     questions: [
       {
         type: "arrange",
-        prompt: "「私の名前はヨウコです。」を英語にしよう",
+        prompt: "「私の名前はヨウコです。」を英語にしよう（まずは平和に）",
         sentence: ["My", "name", "is", "Yoko"],
         distractors: ["I", "am"],
         translation: "My name is Yoko",
       },
       {
         type: "choice",
-        prompt: "「私は52歳です。」の正しい英文は？（ヨウコは52歳）",
+        prompt: "ヨウコ、堂々の52歳。「私は52歳です。」の正しい英文は？",
         choices: [
           "I am 52 years old.",
-          "I am 25 years old.",
-          "I have 52 years.",
-          "I am old 52 years.",
+          "I am 52 years young.",
+          "I am 25 years old.（さば読みすぎ）",
+          "I am 52 cats old.（猫で数えない）",
         ],
         answer: 0,
       },
       {
         type: "arrange",
-        prompt: "「私は主婦です。」を英語にしよう",
+        prompt: "「私は主婦です。」を英語にしよう（家の最高責任者）",
         sentence: ["I", "am", "a", "housewife"],
         distractors: ["the", "is"],
         translation: "I am a housewife",
       },
       {
         type: "choice",
-        prompt: "“I work part-time.” の意味は？",
+        prompt: "おまけにパートも。「私はパートでも働いています。」の英文は？",
         choices: [
-          "私はパートで働いています。",
-          "私は働いていません。",
-          "私は社長です。",
-          "私は学生です。",
+          "I also work part-time.",
+          "I also work as a ninja.（それは内緒）",
+          "I also work in space.（出勤が大変）",
+          "I no work, only sleep.（理想だけど）",
         ],
         answer: 0,
       },
       {
         type: "arrange",
-        prompt: "「毎日いそがしいです。」を英語にしよう",
-        sentence: ["I", "am", "busy", "every", "day"],
+        prompt: "「私は毎日とてもいそがしいです。」を英語にしよう（悲鳴）",
+        sentence: ["I", "am", "very", "busy", "every", "day"],
         distractors: ["is", "days"],
-        translation: "I am busy every day",
+        translation: "I am very busy every day",
       },
     ],
   },
   {
     id: "lesson-2",
-    title: "わたしの家族",
+    title: "わが家の子どもたち",
     questions: [
       {
         type: "choice",
-        prompt: "「夫はとても素敵です。」の正しい英文は？",
+        prompt: "息子オト、ついにバイトデビュー。「息子は新宿のマクドナルドで働いています。」の英文は？",
         choices: [
-          "My husband is wonderful.",
-          "My husband is hungry.",
-          "My husband is a cat.",
-          "My husband is Monday.",
+          "My son works at McDonald's in Shinjuku.",
+          "My son lives at McDonald's in Shinjuku.（住むな）",
+          "My son is a hamburger.（食べられちゃう）",
+          "My son eats McDonald's all day.（それは客）",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "オトは受験生。「息子は早稲田学院高校の3年生です。」の英文は？",
+        choices: [
+          "My son is a third-year student at Waseda Gakuin High School.",
+          "My son is a third-year student at McDonald's.（バイト先が学校）",
+          "My son is a first-year baby.（赤ちゃんに逆戻り）",
+          "My son studies at home... on the sofa.（それは昼寝）",
         ],
         answer: 0,
       },
       {
         type: "arrange",
-        prompt: "「夫はかっこいいです。」を英語にしよう（夫=Aya）",
-        sentence: ["My", "husband", "is", "cool"],
-        distractors: ["she", "nice"],
-        translation: "My husband is cool",
+        prompt: "「息子は夜じゅうゲームをします。」を英語にしよう（勉強は…？）",
+        sentence: ["My", "son", "plays", "games", "all", "night"],
+        distractors: ["play", "day"],
+        translation: "My son plays games all night",
       },
       {
         type: "choice",
-        prompt: "「息子はいつもゲームをしています。」の英文は？（息子=Oto）",
+        prompt: "娘マナはピカピカの高校1年生。「娘は文京高校の1年生です。」の英文は？",
         choices: [
-          "My son always plays video games.",
-          "My son always reads books.",
-          "My son always cooks dinner.",
-          "My son always cleans the house.",
+          "My daughter is a first-year student at Bunkyo High School.",
+          "My daughter is a first-year student at the dance floor.（住所が違う）",
+          "My daughter is a high-level boss.（ゲームの話）",
+          "My daughter is one year old.（さすがに赤ちゃん）",
         ],
         answer: 0,
       },
       {
         type: "arrange",
-        prompt: "「私の息子はゲームが大好きです。」を英語にしよう",
-        sentence: ["My", "son", "loves", "video", "games"],
-        distractors: ["like", "is"],
-        translation: "My son loves video games",
-      },
-      {
-        type: "choice",
-        prompt: "「娘は女子高生です。」の英文は？（娘=Mana）",
-        choices: [
-          "My daughter is a high school student.",
-          "My daughter is a teacher.",
-          "My daughter is a baby.",
-          "My daughter is a doctor.",
-        ],
-        answer: 0,
+        prompt: "「彼女はダンスとボーイスカウトでいそがしいです。」を英語にしよう（体力おばけ）",
+        sentence: ["She", "is", "busy", "with", "dance", "and", "scouts"],
+        distractors: ["am", "sleep"],
+        translation: "She is busy with dance and scouts",
       },
     ],
   },
   {
     id: "lesson-3",
-    title: "いそがしい毎日",
+    title: "自慢の夫、ですが…",
     questions: [
       {
         type: "choice",
-        prompt: "「娘はダンスでいそがしいです。」の英文は？",
+        prompt: "夫アヤ、まずは良いところから。「夫はとてもハンサムです。」の英文は？",
         choices: [
-          "My daughter is busy with dance.",
-          "My daughter is busy with sleep.",
-          "My daughter is busy with nothing.",
-          "My daughter is busy with lunch.",
+          "My husband is very handsome.",
+          "My husband is very handsome... I think.（自信なくすな）",
+          "My husband is a refrigerator.（冷蔵庫ではない）",
+          "My husband is very expensive.（売り物じゃない）",
         ],
         answer: 0,
-      },
-      {
-        type: "arrange",
-        prompt: "「彼女はダンスが得意です。」を英語にしよう（彼女=Mana）",
-        sentence: ["She", "is", "good", "at", "dancing"],
-        distractors: ["am", "the"],
-        translation: "She is good at dancing",
       },
       {
         type: "choice",
-        prompt: "「娘はボーイスカウトにも入っています。」の英文は？",
+        prompt: "……が、健康診断で先生が固まる。「でも彼はコレステロールが高いです。」の英文は？",
         choices: [
-          "She is also in the Boy Scouts.",
-          "She is also in the kitchen.",
-          "She is also in bed.",
-          "She is also in the car.",
+          "But he has high cholesterol.",
+          "But he has high mountains.（登るな）",
+          "But he has high scores.（ゲームか）",
+          "But he is very high.（テンションの話じゃない）",
         ],
         answer: 0,
       },
       {
         type: "arrange",
-        prompt: "「夫はいつも私を手伝ってくれます。」を英語にしよう",
-        sentence: ["My", "husband", "always", "helps", "me"],
-        distractors: ["help", "she"],
-        translation: "My husband always helps me",
+        prompt: "「彼は血圧も高いです。」を英語にしよう（先生のため息が聞こえる）",
+        sentence: ["He", "also", "has", "high", "blood", "pressure"],
+        distractors: ["have", "low"],
+        translation: "He also has high blood pressure",
       },
       {
-        type: "arrange",
-        prompt: "「私は家族が大好きです。」を英語にしよう",
-        sentence: ["I", "love", "my", "family"],
-        distractors: ["like", "are"],
-        translation: "I love my family",
+        type: "choice",
+        prompt: "そして夜。「彼は睡眠時無呼吸症候群です。」の英文は？",
+        choices: [
+          "He has sleep apnea.",
+          "He has sleep pizza.（おいしそうだが違う）",
+          "He has a sleeping dragon.（退治して）",
+          "He sleeps like a king.（うらやましいだけ）",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "寝るときの夫はまるで戦闘機パイロット⁉「彼は寝るときCPAPのマスクをつけます。」の英文は？",
+        choices: [
+          "He wears a CPAP mask when he sleeps.",
+          "He becomes a robot when he sleeps.（変身しない）",
+          "He wears a superhero mask when he sleeps.（出動するな）",
+          "He flies a plane when he sleeps.（夢の中で）",
+        ],
+        answer: 0,
       },
     ],
   },

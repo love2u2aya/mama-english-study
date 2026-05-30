@@ -168,10 +168,13 @@
 
   // --- 4択 --------------------------------------------------
   function renderChoice(q) {
-    const choices = q.choices
+    // 表示順はシャッフルする（正解が常に先頭だとバレるため）。
+    // data-i には元のインデックスを入れるので採点ロジックはそのまま動く。
+    const order = shuffle(q.choices.map((_, i) => i));
+    const choices = order
       .map(
-        (c, i) =>
-          `<button class="choice" data-i="${i}">${escapeHtml(c)}</button>`
+        (i) =>
+          `<button class="choice" data-i="${i}">${escapeHtml(q.choices[i])}</button>`
       )
       .join("");
     return `
