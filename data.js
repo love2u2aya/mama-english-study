@@ -105,6 +105,17 @@ const LESSONS = [
         ],
         answer: 0,
       },
+      {
+        type: "choice",
+        prompt: "実はすごい人。「Yokoは主婦に見えますが、実は会社の社長です。」の英文は？",
+        choices: [
+          "Yoko looks like a housewife, but she is actually a company president.",
+          "Yoko looks like a housewife, and she is actually a housewife.",
+          "Yoko looks like a company president, but she is actually a cat.",
+          "Yoko is actually a secret ninja president.",
+        ],
+        answer: 0,
+      },
     ],
   },
   {
@@ -250,6 +261,28 @@ const LESSONS = [
         sentence: ["Oto", "has", "thick", "hair", "like", "Aya"],
         distractors: ["have", "thin"],
         translation: "Oto has thick hair like Aya",
+      },
+      {
+        type: "choice",
+        prompt: "オトの料理レパートリー。「Otoの得意料理は卵スープと茹でたブロッコリーです。」の英文は？",
+        choices: [
+          "Oto's specialty dishes are egg soup and boiled broccoli.",
+          "Oto's specialty dish is a five-course French dinner.",
+          "Oto's specialty dish is ordering McDonald's.",
+          "Oto can only boil water, on a good day.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "マナは運動神経バツグン。「Manaは勉強より体を動かすことが得意です。」の英文は？",
+        choices: [
+          "Mana is better at sports than at studying.",
+          "Mana is better at studying than at sports.",
+          "Mana is better at sports than at breathing.",
+          "Mana is the best at doing nothing.",
+        ],
+        answer: 0,
       },
     ],
   },
