@@ -481,7 +481,7 @@
 
         <section class="credits__block">
           <div class="credits__role">監督</div>
-          <div class="credits__name">Yoko</div>
+          <div class="credits__name">あなた</div>
         </section>
 
         <section class="credits__block">
