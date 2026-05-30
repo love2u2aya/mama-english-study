@@ -422,19 +422,13 @@
           </div>
         </div>
         ${epilogue}
-        ${
-          isBoss
-            ? `<button class="btn btn--blue btn--block" id="creditsBtn">🎬 エンドロールを見る</button>`
-            : ""
-        }
         <button class="btn btn--green btn--block" id="homeBtn">つづける</button>
       </div>`;
-    document.getElementById("homeBtn").addEventListener("click", renderHome);
-    if (isBoss) {
-      document
-        .getElementById("creditsBtn")
-        .addEventListener("click", playCredits);
-    }
+    // ボスクリア時は「つづける」がエンドロールを開始する（ネタバレ防止で予告しない）。
+    // エンドロール終了後は自動でホームへ戻る。それ以外は通常どおりホームへ。
+    document
+      .getElementById("homeBtn")
+      .addEventListener("click", isBoss ? playCredits : renderHome);
   }
 
   // ===========================================================
