@@ -102,6 +102,20 @@ main {
 .node__caption { margin-top: 8px; font-size: 13px; font-weight: 700; color: var(--text); max-width: 120px; text-align: center; }
 .node--locked + .node__caption { color: var(--gray-text); }
 
+/* 中断中レッスン（途中から再開できる目印） */
+.node--resume { box-shadow: 0 6px 0 var(--blue-dark); background: var(--blue); animation: resume-pulse 1.4s ease-in-out infinite; }
+@keyframes resume-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+.node__resume {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--blue-dark);
+}
+
 /* マスコット */
 .mascot {
   display: block;

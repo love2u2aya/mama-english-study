@@ -17,6 +17,7 @@
     hearts: MAX_HEARTS,
     completed: {}, // { "lesson-1": true }
     lastStudyDate: null, // "YYYY-MM-DD"
+    inProgress: null, // 中断中のレッスン: { lessonId, index, mistakes }
   };
 
   let state = loadState();
@@ -67,9 +68,11 @@
     footer.innerHTML = "";
     syncTopbar();
 
+    const resume = state.inProgress;
     let firstLocked = true; // 最初の未完了レッスンだけ「現在地」として開放
     const nodes = LESSONS.map((lesson, i) => {
       const done = !!state.completed[lesson.id];
+      const resuming = resume && resume.lessonId === lesson.id && !done;
       let cls = "node";
       let locked = false;
       if (done) {
@@ -81,12 +84,17 @@
         locked = true;
       }
       const icon = done ? "&#9733;" : locked ? "&#128274;" : "&#9733;";
+      const caption = resuming
+        ? `${escapeHtml(lesson.title)}<span class="node__resume">途中から再開</span>`
+        : escapeHtml(lesson.title);
       return `
         <div class="node-wrap">
-          <button class="${cls}" ${locked ? "disabled" : ""} data-lesson="${lesson.id}">
+          <button class="${cls}${resuming ? " node--resume" : ""}" ${
+        locked ? "disabled" : ""
+      } data-lesson="${lesson.id}">
             ${icon}
           </button>
-          <div class="node__caption">${escapeHtml(lesson.title)}</div>
+          <div class="node__caption">${caption}</div>
         </div>`;
     });
 
@@ -104,7 +112,13 @@
     app.querySelectorAll(".node[data-lesson]").forEach((btn) => {
       btn.addEventListener("click", () => {
         if (btn.disabled) return;
-        startLesson(btn.dataset.lesson);
+        const id = btn.dataset.lesson;
+        // 中断中レッスンをタップしたら続きから、それ以外は最初から。
+        const resumeData =
+          state.inProgress && state.inProgress.lessonId === id
+            ? state.inProgress
+            : null;
+        startLesson(id, resumeData);
       });
     });
   }
@@ -114,7 +128,7 @@
   // ===========================================================
   let session = null;
 
-  function startLesson(lessonId) {
+  function startLesson(lessonId, resume) {
     if (state.hearts <= 0) {
       showNoHeartsModal();
       return;
@@ -122,14 +136,39 @@
     const lesson = LESSONS.find((l) => l.id === lessonId);
     if (!lesson) return;
 
+    // 中断データから再開する場合は、途中の問番号・ミス数を引き継ぐ。
+    let index = 0;
+    let mistakes = 0;
+    if (resume && resume.lessonId === lessonId) {
+      index = Math.min(resume.index || 0, lesson.questions.length - 1);
+      mistakes = resume.mistakes || 0;
+    }
+
     session = {
       lesson,
-      index: 0,
-      mistakes: 0,
+      index,
+      mistakes,
       answered: false,
       lastCorrect: false,
     };
+    saveProgress(); // どの問題からでも、開始時点を記録しておく
     renderQuestion();
+  }
+
+  // 中断中レッスンの進捗を保存（今が何問目か）。
+  function saveProgress() {
+    if (!session) return;
+    state.inProgress = {
+      lessonId: session.lesson.id,
+      index: session.index,
+      mistakes: session.mistakes,
+    };
+    saveState();
+  }
+
+  function clearProgress() {
+    state.inProgress = null;
+    saveState();
   }
 
   function renderQuestion() {
@@ -322,6 +361,7 @@
     if (session.index >= session.lesson.questions.length) {
       finishLesson();
     } else {
+      saveProgress(); // 次の問題へ進んだ時点を記録
       renderQuestion();
     }
   }
@@ -334,6 +374,7 @@
     state.xp += gainedXp;
     const wasNotDone = !state.completed[session.lesson.id];
     state.completed[session.lesson.id] = true;
+    state.inProgress = null; // 完走したので中断データは消す
 
     // ストリーク更新（1日1回）
     const today = todayStr();
