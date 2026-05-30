@@ -394,15 +394,16 @@
 
     // ラスボス（最終ステージ）クリアだけ、特別な締めのメッセージを出す。
     const isBoss = session.lesson.id === "lesson-boss";
-    const headline = isBoss ? "クリア、おめでとう。" : "レッスン完了！";
+    const headline = isBoss ? "クリア、おめでとう！" : "レッスン完了！";
     const epilogue = isBoss
       ? `
         <div class="result__epilogue">
-          <p>たくさん、ふざけました。</p>
-          <p>でも、ぜんぶ本当のことでした。</p>
-          <p>家族がいて、毎日はにぎやかで、ちょっと大変で、</p>
-          <p>そして、たまらなく愛おしい。</p>
-          <p class="result__signature">— いつもありがとう、Yoko より</p>
+          <p>Yokoさん、ぜんぶクリアです。おつかれさまでした。</p>
+          <p>社長業に、パートに、保護者会の部長。</p>
+          <p>ゲームばかりの息子、忙しすぎる娘、いびきの止まらない夫。</p>
+          <p>ハンバーグの正体は、今日もこっそり野菜です。</p>
+          <p>大変な毎日だけど、よく笑う家族です。</p>
+          <p class="result__signature">これからも、たくさん笑ってね。麦チョコは、ほどほどに。</p>
         </div>`
       : "";
 
