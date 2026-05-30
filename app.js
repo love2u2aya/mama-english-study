@@ -351,10 +351,24 @@
         100
     );
 
+    // ラスボス（最終ステージ）クリアだけ、特別な締めのメッセージを出す。
+    const isBoss = session.lesson.id === "lesson-boss";
+    const headline = isBoss ? "クリア、おめでとう。" : "レッスン完了！";
+    const epilogue = isBoss
+      ? `
+        <div class="result__epilogue">
+          <p>たくさん、ふざけました。</p>
+          <p>でも、ぜんぶ本当のことでした。</p>
+          <p>家族がいて、毎日はにぎやかで、ちょっと大変で、</p>
+          <p>そして、たまらなく愛おしい。</p>
+          <p class="result__signature">— いつもありがとう、Yoko より</p>
+        </div>`
+      : "";
+
     app.innerHTML = `
       <div class="result">
         <img src="assets/celebrate.png" alt="おめでとう" />
-        <h1>レッスン完了！</h1>
+        <h1>${headline}</h1>
         <div class="result__stats">
           <div class="result__stat">
             <div class="result__stat-head">獲得XP</div>
@@ -365,6 +379,7 @@
             <div class="result__stat-body">${accuracy}%</div>
           </div>
         </div>
+        ${epilogue}
         <button class="btn btn--green btn--block" id="homeBtn">つづける</button>
       </div>`;
     document.getElementById("homeBtn").addEventListener("click", renderHome);

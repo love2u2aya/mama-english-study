@@ -29,7 +29,7 @@
             睡眠時無呼吸症候群で寝るとき CPAP マスク。毛が濃い。
      Oto: 息子。17歳。早稲田学院高校3年生。新宿のマクドナルドでバイト。
             学校のフォークソング部（実態はバンド：ギター・ベース・歌）。
-            元ギター→今はベース。元文系→今は理系。父Ayaと同じで毛が濃い。
+            元ギター→今はベース。元理系→今は文系。父Ayaと同じで毛が濃い。
             得意料理は卵スープと茹でブロッコリー。夜じゅうゲーム。
             TOEFL-ITP/TOEIC-IP を申し込む話。バンドの演奏予定が中止に。
             ちょっと反抗期。
@@ -351,11 +351,11 @@ const LESSONS = [
       },
       {
         type: "choice",
-        prompt: "進路も大転換。「Otoは元は文系でしたが、今は理系です。」の英文は？",
+        prompt: "進路も大転換。「Otoは元は理系でしたが、今は文系です。」の英文は？",
         choices: [
-          "Oto used to be a humanities student, but now he studies science.",
-          "Oto used to be a humanities student, but now he studies sleeping.",
-          "Oto used to study science, but now he studies snacks.",
+          "Oto used to study science, but now he is a humanities student.",
+          "Oto used to study science, but now he studies sleeping.",
+          "Oto used to be a humanities student, but now he studies snacks.",
           "Oto studies nothing, only games.",
         ],
         answer: 0,
@@ -864,6 +864,143 @@ const LESSONS = [
           "The secret is simple: I studied very hard.",
           "The secret is simple: I asked Oto for the answers.",
           "The secret is broccoli. It is always broccoli.",
+        ],
+        answer: 0,
+      },
+    ],
+  },
+  {
+    id: "lesson-boss",
+    title: "最終ステージ",
+    questions: [
+      {
+        type: "choice",
+        prompt: "⚔️ 最終決戦!伝説のドラゴンが現れた!まずは名乗りを。「私はYoko、この家の社長だ!」の英文は？",
+        choices: [
+          "I am Yoko, the president of this household!",
+          "I am Yoko, just a tired housewife.",
+          "I am Yoko, and I would like to leave now.",
+          "I am a ninja. Please ignore me.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "🐉 ドラゴンが炎を吐いた!Yokoの反撃は?「Ayaの高コレステロールよ、敵を倒せ!」の英文は？",
+        choices: [
+          "Aya's high cholesterol, defeat the enemy!",
+          "Aya's high cholesterol, please calm down!",
+          "Aya, run away and take a nap!",
+          "Broccoli, do something, please!",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "💨 ドラゴンが眠った!Yokoの一手は?「私の夫のCPAPマスクを使え!」の英文は？",
+        choices: [
+          "Use my husband's CPAP mask!",
+          "Use my husband's video games!",
+          "Use my husband's cholesterol again!",
+          "Use the broccoli hamburger of doom!",
+        ],
+        answer: 0,
+      },
+      {
+        type: "arrange",
+        prompt: "🥦 必殺技!「秘密の野菜ハンバーグを発射せよ!」を英語にしよう",
+        sentence: ["Fire", "the", "secret", "vegetable", "hamburger"],
+        distractors: ["meat", "sleep"],
+        translation: "Fire the secret vegetable hamburger",
+      },
+      {
+        type: "choice",
+        prompt: "👧 ピンチ!でもManaが菊章の力で参戦!「Manaよ、アクロバットで攻撃せよ!」の英文は？",
+        choices: [
+          "Mana, attack with your acrobatics!",
+          "Mana, attack with your homework!",
+          "Mana, please take a nap now!",
+          "Mana, sell the dragon to McDonald's!",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "🎸 そしてOtoがベースを手に登場!「Otoよ、ベースのソロでとどめを刺せ!」の英文は？",
+        choices: [
+          "Oto, finish it with a bass solo!",
+          "Oto, finish it with a nap solo!",
+          "Oto, please stop playing games for one second!",
+          "Oto, order the dragon a Happy Meal!",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "✨ ドラゴンが弱った!最後の弱点を突く呪文は?「家族の愛が、最強の魔法だ!」の英文は？",
+        choices: [
+          "Family love is the strongest magic!",
+          "Broccoli is the strongest magic!",
+          "Sleeping is the strongest magic!",
+          "A coupon is the strongest magic!",
+        ],
+        answer: 0,
+      },
+      {
+        type: "arrange",
+        prompt: "🐲💥 とどめの一撃!「私は家族みんなを愛している!」を英語にしよう",
+        sentence: ["I", "love", "all", "of", "my", "family"],
+        distractors: ["hate", "dragon"],
+        translation: "I love all of my family",
+      },
+      {
+        type: "choice",
+        prompt: "🎉 ドラゴン討伐!勝利の雄叫び!「私たちはやった、家族みんなで!」の英文は？",
+        choices: [
+          "We did it, all of us together as a family!",
+          "We did it, mostly thanks to broccoli!",
+          "We did it, but Aya slept through it!",
+          "We did it... wait, what did we do?",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "そして戦いが終わり、静かな夜。Ayaのいびきと、CPAPの音だけが聞こえる。Yokoは小さくつぶやく。「ねえ、知ってる?あなたのいびきが、私の子守唄なの。」の英文は？",
+        choices: [
+          "You know what? Your snoring is my lullaby.",
+          "You know what? Your snoring keeps me awake.",
+          "You know what? Please be quiet, dear.",
+          "You know what? I want a divorce from your CPAP.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "子どもたちはもう大きい。いつか、この家を出ていく。それでも――。「子どもたちが巣立っても、私にはあなたがいる。」の英文は？",
+        choices: [
+          "Even when the kids leave home, I will still have you.",
+          "Even when the kids leave home, I will still have broccoli.",
+          "Even when the kids leave home, I will finally sleep.",
+          "Even when the kids leave home, I will become a ninja.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "arrange",
+        prompt: "30年分の「ありがとう」をこめて。「あなたと結婚できて幸せです。」を英語にしよう",
+        sentence: ["I", "am", "happy", "to", "marry", "you"],
+        distractors: ["sad", "broccoli"],
+        translation: "I am happy to marry you",
+      },
+      {
+        type: "choice",
+        prompt: "最後の問題です。これだけは、ふざけずに。「何があっても、ずっとあなたを愛しています。」の英文は？",
+        choices: [
+          "No matter what happens, I will always love you.",
+          "No matter what happens, I will always love broccoli.",
+          "No matter what happens, please fix your cholesterol.",
+          "No matter what happens, I am still a ninja.",
         ],
         answer: 0,
       },

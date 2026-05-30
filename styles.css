@@ -268,6 +268,25 @@ main {
 .result__stat-head { background: var(--yellow); color: var(--white); font-weight: 800; padding: 4px; font-size: 13px; }
 .result__stat-body { padding: 10px; font-size: 22px; font-weight: 800; color: var(--yellow); }
 
+/* ラスボスクリアのエピローグ */
+.result__epilogue {
+  margin: 22px auto 4px;
+  max-width: 360px;
+  line-height: 1.9;
+  font-weight: 700;
+  color: var(--text);
+  animation: epilogue-fade 1.2s ease both;
+}
+.result__epilogue p { margin: 6px 0; }
+.result__signature {
+  margin-top: 16px !important;
+  color: var(--green-dark);
+}
+@keyframes epilogue-fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* ライフ切れモーダル */
 .modal-mask {
   position: fixed; inset: 0;
