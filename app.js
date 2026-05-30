@@ -581,24 +581,61 @@
 
     // --- 思い出モンタージュ（英文が次々フェードイン） ---
     let memTimers = [];
+    let memInterval = null;
     if (memories.length) {
       const memBox = stage.querySelector("#creditsMemories");
+      // 画面を縦5バンドに分け、直前と同じ/隣のバンドを避けて配置する。
+      // これで文字どうしが同じ場所で重なるのを防ぐ。
+      const BANDS = [16, 30, 44, 58, 72]; // 各バンドの top(%)
       let mi = 0;
+      let lastBand = -10;
       const showMem = () => {
         const span = document.createElement("div");
         span.className = "credits__memory";
         span.textContent = memories[mi % memories.length];
-        // ランダムな高さに配置して走馬灯っぽく
-        span.style.top = 12 + Math.random() * 60 + "%";
+        // 直前のバンドから2つ以上離れた候補からランダムに選ぶ
+        let candidates = BANDS.map((_, i) => i).filter(
+          (i) => Math.abs(i - lastBand) >= 2
+        );
+        if (!candidates.length) candidates = BANDS.map((_, i) => i);
+        const band = candidates[Math.floor(Math.random() * candidates.length)];
+        lastBand = band;
+        // バンド内で少しだけ揺らして単調さを消す
+        span.style.top = BANDS[band] + (Math.random() * 4 - 2) + "%";
         memBox.appendChild(span);
         // フェードアウト後に除去（CSSのmemory-fade 5.6sに合わせる）
         setTimeout(() => span.remove(), 5600);
         mi++;
       };
-      const iv = setInterval(showMem, 2000);
-      memTimers.push(() => clearInterval(iv));
+      memInterval = setInterval(showMem, 2200);
+      memTimers.push(() => clearInterval(memInterval));
       showMem();
     }
+
+    // --- 最後の締めの一文（バッチリ決める書き下ろし）---
+    // ロール終盤、思い出モンタージュを止めてから、画面中央に
+    // ハッキリ（濃いめ）と一文を浮かび上がらせて締める。
+    // ロールの実アニメ時間（通常82s／省モーション時40s）を読み、
+    // その終わり12秒前に出すことで、どちらの設定でも必ず表示される。
+    const rollEl = stage.querySelector("#creditsRoll");
+    let rollDur = 82;
+    const durStr = getComputedStyle(rollEl).animationDuration; // 例: "82s"
+    const parsed = parseFloat(durStr);
+    if (!isNaN(parsed) && parsed > 0) rollDur = parsed;
+    const finaleAt = Math.max(2, rollDur - 12) * 1000;
+    const finaleTimer = setTimeout(() => {
+      if (memInterval) clearInterval(memInterval); // 走馬灯を止める
+      // 締めの一文だけが見えるよう、ロールと思い出をフェードアウトで消す。
+      stage.classList.add("credits--finale");
+      const fin = document.createElement("div");
+      fin.className = "credits__closing";
+      fin.innerHTML = `
+        <p>笑っていれば、だいたいのことは、なんとかなる。</p>
+        <p class="credits__closing-sub">― またあした、いってらっしゃい。</p>`;
+      stage.appendChild(fin);
+      requestAnimationFrame(() => fin.classList.add("credits__closing--on"));
+    }, finaleAt);
+    memTimers.push(() => clearTimeout(finaleTimer));
 
     // --- 合成音（荘厳なパッド和音） ---
     const stopAudio = startCreditsMusic();

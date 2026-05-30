@@ -404,6 +404,44 @@ main {
   margin: 60px 0 120px;
 }
 
+/* 締めの瞬間：ロールと思い出を消して、締めの一文だけを残す */
+.credits--finale .credits__roll,
+.credits--finale .credits__memories {
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+/* 最後の締めの一文（画面中央にハッキリ決める） */
+.credits__closing {
+  position: absolute;
+  inset: 0;
+  z-index: 5; /* ビネットより前面 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 28px;
+  opacity: 0;
+  transition: opacity 2.4s ease;
+  pointer-events: none;
+}
+.credits__closing--on { opacity: 1; }
+.credits__closing p {
+  margin: 0;
+  font-size: clamp(20px, 6vw, 30px);
+  font-weight: 700;
+  line-height: 1.8;
+  color: #fffdf7;               /* くっきり見せる（濃い） */
+  text-shadow: 0 0 18px rgba(0,0,0,.9);
+}
+.credits__closing-sub {
+  margin-top: 18px !important;
+  font-size: clamp(14px, 4.4vw, 19px) !important;
+  font-weight: 600 !important;
+  color: #ffd76a !important;
+}
+
 /* スキップ */
 .credits__skip {
   position: absolute;
