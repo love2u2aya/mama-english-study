@@ -422,9 +422,220 @@
           </div>
         </div>
         ${epilogue}
+        ${
+          isBoss
+            ? `<button class="btn btn--blue btn--block" id="creditsBtn">🎬 エンドロールを見る</button>`
+            : ""
+        }
         <button class="btn btn--green btn--block" id="homeBtn">つづける</button>
       </div>`;
     document.getElementById("homeBtn").addEventListener("click", renderHome);
+    if (isBoss) {
+      document
+        .getElementById("creditsBtn")
+        .addEventListener("click", playCredits);
+    }
+  }
+
+  // ===========================================================
+  // エンドロール（映画風スタッフロール＋思い出モンタージュ＋合成音）
+  // ボスをクリアした人だけが見られる、ご褒美の演出。
+  // ===========================================================
+  function collectMemoryLines() {
+    // これまでに「クリアしたレッスン」で出てきた英文を集めて、
+    // 走馬灯（モンタージュ）として背景に流す素材にする。
+    const lines = [];
+    LESSONS.forEach((lesson) => {
+      if (!state.completed[lesson.id]) return;
+      lesson.questions.forEach((q) => {
+        if (q.type === "arrange" && q.translation) lines.push(q.translation);
+        else if (q.type === "choice") lines.push(q.choices[q.answer]);
+      });
+    });
+    // 重複を除き、順番をシャッフルしすぎない程度に間引く
+    const seen = new Set();
+    const uniq = [];
+    for (const l of lines) {
+      if (!seen.has(l)) {
+        seen.add(l);
+        uniq.push(l);
+      }
+    }
+    return uniq;
+  }
+
+  function playCredits() {
+    const memories = collectMemoryLines();
+
+    // --- 画面構築（フルスクリーンのシアター） ---
+    const stage = document.createElement("div");
+    stage.className = "credits";
+    stage.innerHTML = `
+      <div class="credits__vignette"></div>
+      <div class="credits__memories" id="creditsMemories"></div>
+      <div class="credits__roll" id="creditsRoll">
+        <div class="credits__title-card">
+          <div class="credits__movie-label">ママえいご プレゼンツ</div>
+          <h1 class="credits__movie-title">ある家族の、笑える物語</h1>
+        </div>
+
+        <section class="credits__block">
+          <div class="credits__role">監督</div>
+          <div class="credits__name">Yoko</div>
+        </section>
+
+        <section class="credits__block">
+          <div class="credits__role">出演</div>
+          <div class="credits__name">Yoko —— 社長で、主婦で、母</div>
+          <div class="credits__name">Aya —— 自慢の夫（いびき担当）</div>
+          <div class="credits__name">Oto —— 息子（夜勤：ゲーム）</div>
+          <div class="credits__name">Mana —— 娘（多忙、でも笑顔）</div>
+        </section>
+
+        <section class="credits__block">
+          <div class="credits__role">衣装協力</div>
+          <div class="credits__name">ジーンズ（あの日の足組み）</div>
+        </section>
+
+        <section class="credits__block">
+          <div class="credits__role">医療指導</div>
+          <div class="credits__name">CPAPマスク</div>
+        </section>
+
+        <section class="credits__block">
+          <div class="credits__role">料理</div>
+          <div class="credits__name">こっそり、大量の野菜</div>
+          <div class="credits__name">（ハンバーグ役：ブロッコリー）</div>
+        </section>
+
+        <section class="credits__block">
+          <div class="credits__role">特別協賛</div>
+          <div class="credits__name">新宿のマクドナルド</div>
+          <div class="credits__name">麦チョコ</div>
+        </section>
+
+        <section class="credits__block">
+          <div class="credits__role">音楽</div>
+          <div class="credits__name">フォークソング部（実態はバンド）</div>
+        </section>
+
+        <section class="credits__block">
+          <div class="credits__role">栄誉</div>
+          <div class="credits__name">菊章 / 英語発表 日本2位</div>
+        </section>
+
+        <section class="credits__block credits__finale">
+          <p>大変な毎日を、いつも笑顔にしてきたのは、あなたです。</p>
+          <p class="credits__wish">これからも、ずっと、笑える家族でいようね。</p>
+        </section>
+
+        <div class="credits__fin">FIN</div>
+      </div>
+      <button class="credits__skip" id="creditsSkip">スキップ ✕</button>
+    `;
+    document.body.appendChild(stage);
+    requestAnimationFrame(() => stage.classList.add("credits--on"));
+
+    // --- 思い出モンタージュ（英文が次々フェードイン） ---
+    let memTimers = [];
+    if (memories.length) {
+      const memBox = stage.querySelector("#creditsMemories");
+      let mi = 0;
+      const showMem = () => {
+        const span = document.createElement("div");
+        span.className = "credits__memory";
+        span.textContent = memories[mi % memories.length];
+        // ランダムな高さに配置して走馬灯っぽく
+        span.style.top = 12 + Math.random() * 60 + "%";
+        memBox.appendChild(span);
+        // フェードアウト後に除去
+        setTimeout(() => span.remove(), 4200);
+        mi++;
+      };
+      const iv = setInterval(showMem, 1400);
+      memTimers.push(() => clearInterval(iv));
+      showMem();
+    }
+
+    // --- 合成音（荘厳なパッド和音） ---
+    const stopAudio = startCreditsMusic();
+
+    // --- 終了処理（ロール終了 or スキップ） ---
+    const roll = stage.querySelector("#creditsRoll");
+    let ended = false;
+    const end = () => {
+      if (ended) return;
+      ended = true;
+      memTimers.forEach((fn) => fn());
+      stopAudio();
+      stage.classList.remove("credits--on");
+      setTimeout(() => {
+        stage.remove();
+        renderHome();
+      }, 700);
+    };
+    roll.addEventListener("animationend", end);
+    stage.querySelector("#creditsSkip").addEventListener("click", end);
+  }
+
+  // Web Audio API で、荘厳なパッド（数音の和音）をその場で合成する。
+  // 音源ファイル不要・権利フリー。戻り値を呼ぶと停止する。
+  function startCreditsMusic() {
+    let ctx;
+    try {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+    } catch (e) {
+      return function () {};
+    }
+    const master = ctx.createGain();
+    master.gain.value = 0;
+    master.connect(ctx.destination);
+    // ふわっと入ってくる
+    master.gain.linearRampToValueAtTime(0, ctx.currentTime);
+    master.gain.linearRampToValueAtTime(0.18, ctx.currentTime + 3);
+
+    // 軽いリバーブ代わりのローパス
+    const lp = ctx.createBiquadFilter();
+    lp.type = "lowpass";
+    lp.frequency.value = 1800;
+    lp.connect(master);
+
+    const voices = [];
+    function chord(freqs, when, dur) {
+      freqs.forEach((f) => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = "sine";
+        o.frequency.value = f;
+        g.gain.value = 0;
+        g.gain.setValueAtTime(0, when);
+        g.gain.linearRampToValueAtTime(0.25, when + 1.2);
+        g.gain.linearRampToValueAtTime(0.0, when + dur);
+        o.connect(g);
+        g.connect(lp);
+        o.start(when);
+        o.stop(when + dur + 0.1);
+        voices.push(o);
+      });
+    }
+    // ゆったりした進行（C → G → Am → F 風）を荘厳に
+    const t = ctx.currentTime;
+    const bar = 6;
+    chord([130.8, 196.0, 261.6, 329.6], t + 0, bar);          // C
+    chord([98.0, 196.0, 246.9, 392.0], t + bar, bar);          // G
+    chord([110.0, 220.0, 261.6, 329.6], t + bar * 2, bar);     // Am
+    chord([87.3, 174.6, 261.6, 349.2], t + bar * 3, bar);      // F
+    chord([130.8, 196.0, 261.6, 392.0], t + bar * 4, bar + 4); // C (finale)
+
+    return function stop() {
+      try {
+        master.gain.cancelScheduledValues(ctx.currentTime);
+        master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.6);
+        setTimeout(() => ctx.close(), 800);
+      } catch (e) {
+        /* noop */
+      }
+    };
   }
 
   // ---- ライフ切れ ------------------------------------------
