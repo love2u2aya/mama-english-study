@@ -4,30 +4,44 @@
      - "choice"   : 4択（正しい英文を選ぶ）
      - "arrange"  : 単語を並べ替えて英文をつくる
      - "listen"   : （将来用）今は choice と同じ扱い
-   日本語話者が「やさしい日常英会話」を学ぶ想定。
+   日本語話者（ママ＝Yoko）向けの、やさしい日常英会話。
 
    ── トーンの方針 ──
      ・ユニット名／レッスン名は “ふつうの英語教材” に見えるよう真面目に。
-       （例：自己紹介／家族の紹介／健康について…）
-     ・中身（prompt と選択肢）はちょっとふざけた感じ。
-       ボケはハズレ選択肢に仕込み、正解の英文はちゃんと正しい文法にする。
+     ・中身（prompt と選択肢）はちょっとふざけた感じ。ボケはハズレ選択肢に。
+     ・選択肢に日本語の注釈はつけない。ボケ回答は堂々と英文だけで。
+     ・正解の英文はちゃんと正しい文法にする。
      ・ほとんどの問題に、下記4人の誰かを「名前で」登場させる。
+     ・名前は英字表記で統一：Yoko / Aya / Oto / Mana。
 
-   ── 登場人物（固有名詞）の命名ルール ──
-     男性・大人  : Aya
-     男性・子ども: Oto
-     女性・大人  : Yoko
-     女性・子ども: Mana
+   ── 登場人物（命名ルール） ──
+     女性・大人  : Yoko （葉子）
+     男性・大人  : Aya  （夫）
+     男性・子ども: Oto（響＝息子）
+     女性・子ども: Mana   （愛＝娘）
 
-   ── ヨウコさん一家の設定（問題の世界観） ──
-     Yoko : 主人公。52歳。主婦で、パートでも働いている。Aya を愛している。
-            ★問題を解くのは Yoko 本人なので、一人称(I/my)でも三人称(Yoko/she)でもOK。
-     Aya  : Yoko の夫。とてもハンサムで自慢の夫。
-            …が、コレステロールも血圧も高め。睡眠時無呼吸症候群で、
-            寝るときは CPAP（シーパップ）のマスクをつける。
-     Oto  : 息子。早稲田学院高校の3年生。新宿のマクドナルドでアルバイト。
-            夜じゅうゲーム。元ギタリストだが今はベース。元文系だが今は理系。
-     Mana : 娘。文京高校の1年生。ダンスとボーイスカウトでいそがしい。
+   ── ヨウコさん一家・設定メモ ──
+     Yoko : 主人公。52歳。OtoとManaの母。主婦に見えるが実は会社の社長。
+            パートもしている。Aya を愛している。茶色の髪で肩くらいの長さ。
+            夫と出会ったときはジーンズで足を組んでいた。こっそり麦チョコを
+            食べる。全身脱毛している。フォークソング部の保護者会の部長。
+     Aya  : 夫。とてもハンサムで自慢の夫。コレステロール・血圧が高い。
+            睡眠時無呼吸症候群で寝るとき CPAP マスク。毛が濃い。
+     Oto: 息子。17歳。早稲田学院高校3年生。新宿のマクドナルドでバイト。
+            学校のフォークソング部（実態はバンド：ギター・ベース・歌）。
+            元ギター→今はベース。元文系→今は理系。父Ayaと同じで毛が濃い。
+            得意料理は卵スープと茹でブロッコリー。夜じゅうゲーム。
+            TOEFL-ITP/TOEIC-IP を申し込む話。バンドの演奏予定が中止に。
+            ちょっと反抗期。
+     Mana   : 娘。15歳。文京高校1年生。勉強より運動が得意。元バスケ部
+            （背番号5・白いユニフォーム・シュート役）。ダンスを習う。
+            英語を習い、留学を目指す。塾に通う。アクロバットもやる。
+            ボーイスカウト（ベンチャースカウト／杉並第5団・東京連盟）で
+            菊章を受章。英語発表で日本2位。忙しいけど忙しさを楽しむタイプ。
+            幼い頃はおかしな格好で寝ていた。
+     家族 : 4人家族。会話と笑いを大切にする。料理にはこっそり大量の野菜。
+            ハンバーグは肉ではなく野菜でできている。結婚記念日は4月15日。
+            クリスマスイブはシェーキーズで家族ディナー。
    =========================================================== */
 
 const UNIT = {
@@ -36,6 +50,45 @@ const UNIT = {
 };
 
 const LESSONS = [
+  {
+    id: "lesson-0",
+    title: "はじめに",
+    questions: [
+      {
+        type: "choice",
+        prompt: "ようこそ！まずはこのアプリの説明から。「これは英語のフォニックス学習アプリです。」の英文は？",
+        choices: [
+          "This is an English phonics app.",
+          "This is a cooking app for broccoli.",
+          "This is a sleeping app for tired dads.",
+          "This is a secret game for ninjas.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "そして一番大事なこと。「ご安心を、このアプリは無料です！」の英文は？",
+        choices: [
+          "Don't worry, this app is free!",
+          "This app costs one million yen.",
+          "This app costs your whole salary.",
+          "This app is free... just kidding, it's still free.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "準備OK！「さあ、Yokoの家族と英語を学びましょう。」の英文は？",
+        choices: [
+          "Let's learn English with Yoko's family.",
+          "Let's learn English with a sleeping dragon.",
+          "Let's eat hamburgers with Yoko's family.",
+          "Let's run away from English forever.",
+        ],
+        answer: 0,
+      },
+    ],
+  },
   {
     id: "lesson-1",
     title: "自己紹介",
@@ -67,21 +120,36 @@ const LESSONS = [
       },
       {
         type: "choice",
-        prompt: "「Yokoはパートでも働いています。」の英文は？",
+        prompt: "実はすごい人。「Yokoは主婦に見えますが、実は会社の社長です。」の英文は？",
         choices: [
-          "Yoko also works part-time.",
-          "Yoko also works as a ninja.",
-          "Yoko also works in space.",
-          "Yoko never works, only naps.",
+          "Yoko looks like a housewife, but she is actually a company president.",
+          "Yoko looks like a housewife, and she is actually a housewife.",
+          "Yoko looks like a company president, but she is actually a cat.",
+          "Yoko is actually a secret ninja president.",
         ],
         answer: 0,
       },
       {
-        type: "arrange",
-        prompt: "「私は毎日とてもいそがしいです。」を英語にしよう",
-        sentence: ["I", "am", "very", "busy", "every", "day"],
-        distractors: ["is", "days"],
-        translation: "I am very busy every day",
+        type: "choice",
+        prompt: "髪型の話。「Yokoは茶色で肩くらいの髪です。」の英文は？",
+        choices: [
+          "Yoko has brown, shoulder-length hair.",
+          "Yoko has brown, floor-length hair.",
+          "Yoko has green, spiky hair.",
+          "Yoko has no hair, only a hat.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "なれそめ。「Ayaと出会ったとき、Yokoはジーンズで足を組んでいました。」の英文は？",
+        choices: [
+          "When she met Aya, Yoko was wearing jeans with her legs crossed.",
+          "When she met Aya, Yoko was wearing a spacesuit.",
+          "When she met Aya, Yoko was upside down.",
+          "When she met Aya, Yoko was eating broccoli.",
+        ],
+        answer: 0,
       },
       {
         type: "choice",
@@ -106,15 +174,11 @@ const LESSONS = [
         answer: 0,
       },
       {
-        type: "choice",
-        prompt: "実はすごい人。「Yokoは主婦に見えますが、実は会社の社長です。」の英文は？",
-        choices: [
-          "Yoko looks like a housewife, but she is actually a company president.",
-          "Yoko looks like a housewife, and she is actually a housewife.",
-          "Yoko looks like a company president, but she is actually a cat.",
-          "Yoko is actually a secret ninja president.",
-        ],
-        answer: 0,
+        type: "arrange",
+        prompt: "「私は毎日とてもいそがしいです。」を英語にしよう",
+        sentence: ["I", "am", "very", "busy", "every", "day"],
+        distractors: ["is", "days"],
+        translation: "I am very busy every day",
       },
     ],
   },
@@ -122,6 +186,17 @@ const LESSONS = [
     id: "lesson-2",
     title: "家族の紹介",
     questions: [
+      {
+        type: "choice",
+        prompt: "まずは人数。「私たちは4人家族です。」の英文は？",
+        choices: [
+          "We are a family of four.",
+          "We are a family of forty.",
+          "We are a family of dragons.",
+          "We are a family of one, plus three ninjas.",
+        ],
+        answer: 0,
+      },
       {
         type: "arrange",
         prompt: "「Ayaは私の夫です。」を英語にしよう",
@@ -157,8 +232,30 @@ const LESSONS = [
         choices: [
           "Yoko loves Aya very much.",
           "Yoko loves Aya's CPAP machine.",
-          "Yoko loves Aya... on payday.",
+          "Yoko loves Aya only on payday.",
           "Yoko loves Aya like a hamburger.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "記念日。「私たちの結婚記念日は4月15日です。」の英文は？",
+        choices: [
+          "Our wedding anniversary is April 15th.",
+          "Our wedding anniversary is every day, sadly.",
+          "Our wedding anniversary is never.",
+          "Our wedding anniversary is at McDonald's.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "わが家のモットー。「私たちの家族は会話と笑いを大切にしています。」の英文は？",
+        choices: [
+          "Our family loves talking and laughing.",
+          "Our family loves shouting and crying.",
+          "Our family loves sleeping and snoring.",
+          "Our family loves nothing, only broccoli.",
         ],
         answer: 0,
       },
@@ -173,11 +270,33 @@ const LESSONS = [
   },
   {
     id: "lesson-3",
-    title: "子どもたちのこと",
+    title: "息子のこと",
     questions: [
       {
         type: "choice",
-        prompt: "息子オト、バイトデビュー。「Otoは新宿のマクドナルドで働いています。」の英文は？",
+        prompt: "息子Oto。「Otoは17歳の高校生です。」の英文は？",
+        choices: [
+          "Oto is a 17-year-old high school student.",
+          "Oto is a 71-year-old high school student.",
+          "Oto is a 17-year-old baby.",
+          "Oto is a 17-year-old hamburger.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "受験生。「Otoは早稲田学院高校の3年生です。」の英文は？",
+        choices: [
+          "Oto is a third-year student at Waseda Gakuin High School.",
+          "Oto is a third-year student at McDonald's.",
+          "Oto is a first-year baby.",
+          "Oto studies hard... on the sofa.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "バイトデビュー。「Otoは新宿のマクドナルドで働いています。」の英文は？",
         choices: [
           "Oto works at McDonald's in Shinjuku.",
           "Oto lives at McDonald's in Shinjuku.",
@@ -188,25 +307,40 @@ const LESSONS = [
       },
       {
         type: "choice",
-        prompt: "オトは受験生。「Otoは早稲田学院高校の3年生です。」の英文は？",
+        prompt: "部活。「Otoは学校のフォークソング部に入っています。」の英文は？",
         choices: [
-          "Oto is a third-year student at Waseda Gakuin High School.",
-          "Oto is a third-year student at McDonald's.",
-          "Oto is a first-year baby.",
-          "Oto studies hard... on the sofa.",
+          "Oto is in the folk song club at school.",
+          "Oto is in the napping club at school.",
+          "Oto is in the broccoli club at school.",
+          "Oto is in no club, only games.",
         ],
         answer: 0,
       },
       {
-        type: "arrange",
-        prompt: "「Otoは夜じゅうゲームをします。」を英語にしよう（勉強は…？）",
-        sentence: ["Oto", "plays", "games", "all", "night"],
-        distractors: ["play", "day"],
-        translation: "Oto plays games all night",
+        type: "choice",
+        prompt: "実態は…？「フォークソング部という名前ですが、実はバンドのようなものです。」の英文は？",
+        choices: [
+          "It is called a folk song club, but it is really more like a band.",
+          "It is called a folk song club, and they only fold socks.",
+          "It is called a band, but it is really a cooking club.",
+          "It is called a club, but nobody ever comes.",
+        ],
+        answer: 0,
       },
       {
         type: "choice",
-        prompt: "オトの音楽遍歴。「Otoは昔ギタリストでしたが、今はベースを弾きます。」の英文は？",
+        prompt: "担当は何でも。「Otoはギターとベースを弾いて、歌も歌います。」の英文は？",
+        choices: [
+          "Oto plays the guitar and the bass, and he also sings.",
+          "Oto plays the guitar and the bass while sleeping.",
+          "Oto plays nothing, but he sings in the shower.",
+          "Oto plays the broccoli and the egg soup.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "音楽遍歴。「Otoは昔ギタリストでしたが、今はベースを弾きます。」の英文は？",
         choices: [
           "Oto used to play the guitar, but now he plays the bass.",
           "Oto used to play the guitar, but now he plays the recorder.",
@@ -228,32 +362,43 @@ const LESSONS = [
       },
       {
         type: "choice",
-        prompt: "娘マナは高校1年生。「Manaは文京高校の1年生です。」の英文は？",
+        prompt: "試験の話。「OtoはTOEFL-ITPとTOEIC-IPに申し込みます。」の英文は？",
         choices: [
-          "Mana is a first-year student at Bunkyo High School.",
-          "Mana is a first-year student at the dance floor.",
-          "Mana is a high-level boss.",
-          "Mana is one year old.",
+          "Oto is signing up for the TOEFL-ITP and the TOEIC-IP.",
+          "Oto is signing up for a nap.",
+          "Oto is signing up for a hamburger contest.",
+          "Oto is signing up to study science... someday.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "残念なお知らせ。「Otoのバンドの演奏予定は中止になりました。」の英文は？",
+        choices: [
+          "Oto's band performance was canceled.",
+          "Oto's band performance was on the moon.",
+          "Oto's band performance lasted ten years.",
+          "Oto's band performance was actually a nap.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "お年頃。「Otoは少し反抗期です。」の英文は？",
+        choices: [
+          "Oto is going through a rebellious phase.",
+          "Oto is going through a refrigerator.",
+          "Oto is going through a hamburger phase.",
+          "Oto is going through the ceiling.",
         ],
         answer: 0,
       },
       {
         type: "arrange",
-        prompt: "「Manaはダンスとボーイスカウトでいそがしいです。」を英語にしよう（体力おばけ）",
-        sentence: ["Mana", "is", "busy", "with", "dance", "and", "scouts"],
-        distractors: ["am", "sleep"],
-        translation: "Mana is busy with dance and scouts",
-      },
-      {
-        type: "choice",
-        prompt: "マナの幼少期。「Manaは幼い頃、おかしな格好で寝ていました。」の英文は？",
-        choices: [
-          "When she was little, Mana slept in strange positions.",
-          "When she was little, Mana slept for ten years.",
-          "When she was little, Mana slept on the ceiling.",
-          "When she was little, Mana slept at McDonald's.",
-        ],
-        answer: 0,
+        prompt: "「Otoは夜じゅうゲームをします。」を英語にしよう",
+        sentence: ["Oto", "plays", "games", "all", "night"],
+        distractors: ["play", "day"],
+        translation: "Oto plays games all night",
       },
       {
         type: "arrange",
@@ -264,7 +409,7 @@ const LESSONS = [
       },
       {
         type: "choice",
-        prompt: "オトの料理レパートリー。「Otoの得意料理は卵スープと茹でたブロッコリーです。」の英文は？",
+        prompt: "料理レパートリー。「Otoの得意料理は卵スープと茹でたブロッコリーです。」の英文は？",
         choices: [
           "Oto's specialty dishes are egg soup and boiled broccoli.",
           "Oto's specialty dish is a five-course French dinner.",
@@ -273,9 +418,37 @@ const LESSONS = [
         ],
         answer: 0,
       },
+    ],
+  },
+  {
+    id: "lesson-4",
+    title: "娘のこと",
+    questions: [
       {
         type: "choice",
-        prompt: "マナは運動神経バツグン。「Manaは勉強より体を動かすことが得意です。」の英文は？",
+        prompt: "娘Mana。「Manaは15歳の高校生です。」の英文は？",
+        choices: [
+          "Mana is a 15-year-old high school student.",
+          "Mana is a 51-year-old high school student.",
+          "Mana is a 15-year-old grandma.",
+          "Mana is a 15-year-old hamburger.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "ピカピカの1年生。「Manaは文京高校の1年生です。」の英文は？",
+        choices: [
+          "Mana is a first-year student at Bunkyo High School.",
+          "Mana is a first-year student at the dance floor.",
+          "Mana is a high-level boss.",
+          "Mana is one year old.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "運動神経バツグン。「Manaは勉強より体を動かすことが得意です。」の英文は？",
         choices: [
           "Mana is better at sports than at studying.",
           "Mana is better at studying than at sports.",
@@ -284,10 +457,134 @@ const LESSONS = [
         ],
         answer: 0,
       },
+      {
+        type: "choice",
+        prompt: "元バスケ部。「Manaは昔バスケットボールをしていました。」の英文は？",
+        choices: [
+          "Mana used to play basketball.",
+          "Mana used to eat basketballs.",
+          "Mana used to sleep during basketball.",
+          "Mana used to be a basketball.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "コートの主役。「Manaは背番号5の白いユニフォームで、シュート役でした。」の英文は？",
+        choices: [
+          "Mana wore number 5 and a white uniform, and she was the shooter.",
+          "Mana wore number 500 and a rainbow uniform.",
+          "Mana wore number 5, but she was the team mascot.",
+          "Mana wore pajamas and shot at nothing.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "習いごと。「Manaはダンスを習っています。」の英文は？",
+        choices: [
+          "Mana takes dance lessons.",
+          "Mana takes nap lessons.",
+          "Mana takes hamburger lessons.",
+          "Mana gives lessons to her parents.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "arrange",
+        prompt: "「Manaは留学したいと思っています。」を英語にしよう",
+        sentence: ["Mana", "wants", "to", "study", "abroad"],
+        distractors: ["want", "home"],
+        translation: "Mana wants to study abroad",
+      },
+      {
+        type: "arrange",
+        prompt: "「Manaは英語を習っています。」を英語にしよう",
+        sentence: ["Mana", "is", "learning", "English"],
+        distractors: ["am", "learn"],
+        translation: "Mana is learning English",
+      },
+      {
+        type: "choice",
+        prompt: "勉強も。「Manaは塾に通っています。」の英文は？",
+        choices: [
+          "Mana goes to a cram school.",
+          "Mana goes to a hamburger school.",
+          "Mana goes to a sleeping school.",
+          "Mana goes to school only in her dreams.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "まさかの特技。「Manaはアクロバットもやります。」の英文は？",
+        choices: [
+          "Mana also does acrobatics.",
+          "Mana also does nothing.",
+          "Mana also does the laundry, upside down.",
+          "Mana also does magic, but it never works.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "スカウト活動。「Manaはボーイスカウトでベンチャースカウトをしています。」の英文は？",
+        choices: [
+          "Mana is a Venture Scout in the Boy Scouts.",
+          "Mana is a sleeping scout in the nap club.",
+          "Mana is a hamburger scout at McDonald's.",
+          "Mana is a scout, but only on the sofa.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "栄誉。「Manaはボーイスカウトで菊章をとりました。」の英文は？",
+        choices: [
+          "Mana won the Chrysanthemum Award in scouting.",
+          "Mana won the Hamburger Award in scouting.",
+          "Mana won the Sleeping Award in scouting.",
+          "Mana won nothing, but she had fun.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "英語もすごい。「Manaは英語の発表で日本2位になりました。」の英文は？",
+        choices: [
+          "Mana won second place in Japan in an English presentation.",
+          "Mana won second place in Japan in a sleeping contest.",
+          "Mana won second place in Japan in eating broccoli.",
+          "Mana won last place, but she still smiled.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "超多忙。「Manaはバスケ、ダンス、英語、スカウトで忙しいですが、それを楽しんでいます。」の英文は？",
+        choices: [
+          "Mana is busy with basketball, dance, English, and scouts, but she enjoys it.",
+          "Mana is busy doing absolutely nothing, and she hates it.",
+          "Mana is busy sleeping, and she enjoys it a lot.",
+          "Mana is busy eating hamburgers, but she is sad.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "幼少期。「Manaは幼い頃、おかしな格好で寝ていました。」の英文は？",
+        choices: [
+          "When she was little, Mana slept in strange positions.",
+          "When she was little, Mana slept for ten years.",
+          "When she was little, Mana slept on the ceiling.",
+          "When she was little, Mana slept at McDonald's.",
+        ],
+        answer: 0,
+      },
     ],
   },
   {
-    id: "lesson-4",
+    id: "lesson-5",
     title: "健康について",
     questions: [
       {
@@ -314,7 +611,7 @@ const LESSONS = [
       },
       {
         type: "arrange",
-        prompt: "「Ayaは血圧も高いです。」を英語にしよう（先生のため息）",
+        prompt: "「Ayaは血圧も高いです。」を英語にしよう",
         sentence: ["Aya", "also", "has", "high", "blood", "pressure"],
         distractors: ["have", "low"],
         translation: "Aya also has high blood pressure",
@@ -332,7 +629,7 @@ const LESSONS = [
       },
       {
         type: "choice",
-        prompt: "寝るアヤはまるで戦闘機パイロット⁉「Ayaは寝るときCPAPのマスクをつけます。」の英文は？",
+        prompt: "寝るAyaはまるで戦闘機パイロット⁉「Ayaは寝るときCPAPのマスクをつけます。」の英文は？",
         choices: [
           "Aya wears a CPAP mask when he sleeps.",
           "Aya becomes a robot when he sleeps.",
@@ -344,7 +641,57 @@ const LESSONS = [
     ],
   },
   {
-    id: "lesson-5",
+    id: "lesson-6",
+    title: "わが家の食卓",
+    questions: [
+      {
+        type: "choice",
+        prompt: "わが家の秘密。「Yokoの料理にはこっそり大量の野菜が入っています。」の英文は？",
+        choices: [
+          "Yoko's cooking secretly has a lot of vegetables.",
+          "Yoko's cooking secretly has a lot of glitter.",
+          "Yoko's cooking secretly has nothing in it.",
+          "Yoko's cooking is secretly ordered from McDonald's.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "衝撃の事実。「うちのハンバーグは肉ではなく野菜でできています。」の英文は？",
+        choices: [
+          "Our hamburgers are made of vegetables, not meat.",
+          "Our hamburgers are made of meat, not hamburgers.",
+          "Our hamburgers are made of dreams.",
+          "Our hamburgers are actually broccoli wearing a hat.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "クリスマスイブの思い出。「クリスマスイブに、家族でシェーキーズで夕食を食べました。」の英文は？",
+        choices: [
+          "On Christmas Eve, the family had dinner at Shakey's.",
+          "On Christmas Eve, the family had dinner on the roof.",
+          "On Christmas Eve, the family ate only broccoli.",
+          "On Christmas Eve, the family slept through dinner.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "ママの肩書きもう一つ。「Yokoはフォークソング部の保護者会の部長です。」の英文は？",
+        choices: [
+          "Yoko is the head of the folk song club's parents' association.",
+          "Yoko is the head chef of the broccoli factory.",
+          "Yoko is the head of a secret ninja club.",
+          "Yoko is the head, but nobody listens.",
+        ],
+        answer: 0,
+      },
+    ],
+  },
+  {
+    id: "lesson-7",
     title: "気持ちを伝えよう",
     questions: [
       {
@@ -372,7 +719,18 @@ const LESSONS = [
           "Even when Oto plays games all night, Yoko still loves him.",
           "When Oto plays games all night, Yoko sells him.",
           "When Oto plays games all night, Yoko joins him.",
-          "When Oto plays games, Yoko becomes a boss.",
+          "When Oto plays games, Yoko becomes the final boss.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "忙しい娘へ。「Manaはとても忙しいですが、Yokoは彼女を誇りに思っています。」の英文は？",
+        choices: [
+          "Mana is very busy, but Yoko is proud of her.",
+          "Mana is very busy, so Yoko hides the broccoli.",
+          "Mana is very busy, so Yoko takes a nap for her.",
+          "Mana is very busy being a hamburger.",
         ],
         answer: 0,
       },
