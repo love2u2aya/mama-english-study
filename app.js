@@ -452,26 +452,59 @@
   // ボスをクリアした人だけが見られる、ご褒美の演出。
   // ===========================================================
   function collectMemoryLines() {
-    // これまでに「クリアしたレッスン」で出てきた英文を集めて、
-    // 走馬灯（モンタージュ）として背景に流す素材にする。
-    const lines = [];
+    // 走馬灯（モンタージュ）として背景に流す英文を用意する。
+    // 全部を順番に出すのではなく、「グッとくる／キャラが立つ」名ぜりふを
+    // 優先リストから選び、プレイ済み(クリア済みレッスンに登場)のものだけを
+    // シャッフルして見せる。
+    const HIGHLIGHTS = [
+      // 家族・愛のコア
+      "No matter what happens, I will always love you.",
+      "You know what? Your snoring is my lullaby.",
+      "Even when the kids leave home, I will still have you.",
+      "I am happy to marry you",
+      "Family love is the strongest magic!",
+      "I love all of my family",
+      "We did it, all of us together as a family!",
+      "Yoko loves Aya very much.",
+      "Yoko loves Aya",
+      "I love Aya, CPAP mask and all.",
+      "Even when Oto plays games all night, Yoko still loves him.",
+      "I love my family very much",
+      "I love my family",
+      // キャラ紹介
+      "Yoko is 52, but she still works hard.",
+      "Yoko looks like a housewife, but she is actually a company president.",
+      "Aya is very handsome.",
+      "Aya wears a CPAP mask when he sleeps.",
+      "Oto plays games all night",
+      "Oto works at McDonald's in Shinjuku.",
+      "Mana is busy with basketball, dance, English, and scouts, but she enjoys it.",
+      "Mana wants to study abroad",
+      "Mana won second place in Japan in an English presentation.",
+    ];
+
+    // プレイ済み(クリア済みレッスン)の正解英文の集合を作る
+    const unlocked = new Set();
     LESSONS.forEach((lesson) => {
       if (!state.completed[lesson.id]) return;
       lesson.questions.forEach((q) => {
-        if (q.type === "arrange" && q.translation) lines.push(q.translation);
-        else if (q.type === "choice") lines.push(q.choices[q.answer]);
+        if (q.type === "arrange" && q.translation) unlocked.add(q.translation);
+        else if (q.type === "choice") unlocked.add(q.choices[q.answer]);
       });
     });
-    // 重複を除き、順番をシャッフルしすぎない程度に間引く
-    const seen = new Set();
-    const uniq = [];
-    for (const l of lines) {
-      if (!seen.has(l)) {
-        seen.add(l);
-        uniq.push(l);
-      }
+
+    // 優先リストのうち、プレイ済みのものだけを採用
+    let picked = HIGHLIGHTS.filter((l) => unlocked.has(l));
+    // 名ぜりふが一つも無い(序盤だけクリア)ときは、プレイ済み全体から拾う
+    if (picked.length < 6) {
+      picked = picked.concat([...unlocked].filter((l) => !picked.includes(l)));
     }
-    return uniq;
+    // シャッフルして順番をランダムに
+    for (let i = picked.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [picked[i], picked[j]] = [picked[j], picked[i]];
+    }
+    return picked;
   }
 
   function playCredits() {
@@ -628,14 +661,28 @@
         voices.push(o);
       });
     }
-    // ゆったりした進行（C → G → Am → F 風）を荘厳に
-    const t = ctx.currentTime;
-    const bar = 6;
-    chord([130.8, 196.0, 261.6, 329.6], t + 0, bar);          // C
-    chord([98.0, 196.0, 246.9, 392.0], t + bar, bar);          // G
-    chord([110.0, 220.0, 261.6, 329.6], t + bar * 2, bar);     // Am
-    chord([87.3, 174.6, 261.6, 349.2], t + bar * 3, bar);      // F
-    chord([130.8, 196.0, 261.6, 392.0], t + bar * 4, bar + 4); // C (finale)
+    // ゆったりした進行（C → G → Am → F）。これをロール終了まで繰り返す。
+    const progression = [
+      [130.8, 196.0, 261.6, 329.6], // C
+      [98.0, 196.0, 246.9, 392.0],  // G
+      [110.0, 220.0, 261.6, 329.6], // Am
+      [87.3, 174.6, 261.6, 349.2],  // F
+    ];
+    const bar = 6; // 1コードの長さ(秒)
+    const TOTAL = 86; // ロール(82s)を覆う長さ
+    const t0 = ctx.currentTime;
+    let i = 0;
+    let when = t0;
+    while (when < t0 + TOTAL) {
+      chord(progression[i % progression.length], when, bar);
+      when += bar;
+      i++;
+    }
+    // フィナーレ：最後にトニック(C)を長めに重ねて締める
+    chord([130.8, 196.0, 261.6, 392.0], t0 + TOTAL, 8);
+    // 終わりにかけて全体をフェードアウト
+    master.gain.setValueAtTime(0.18, t0 + TOTAL - 6);
+    master.gain.linearRampToValueAtTime(0, t0 + TOTAL + 6);
 
     return function stop() {
       try {
