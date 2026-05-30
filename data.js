@@ -83,6 +83,28 @@ const LESSONS = [
         distractors: ["is", "days"],
         translation: "I am very busy every day",
       },
+      {
+        type: "choice",
+        prompt: "ダイエット中…のはず。「Yokoはこっそり麦チョコを食べています。」の英文は？",
+        choices: [
+          "Yoko secretly eats chocolate puffs.",
+          "Yoko proudly eats a whole cake.",
+          "Yoko secretly eats her own diet plan.",
+          "Yoko never eats, she only dreams of snacks.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "美意識は高い。「Yokoは全身脱毛をしています。」の英文は？",
+        choices: [
+          "Yoko gets full-body hair removal.",
+          "Yoko gets a full-body massage.",
+          "Yoko removes the whole house.",
+          "Yoko grows a full beard.",
+        ],
+        answer: 0,
+      },
     ],
   },
   {
@@ -210,6 +232,24 @@ const LESSONS = [
         sentence: ["Mana", "is", "busy", "with", "dance", "and", "scouts"],
         distractors: ["am", "sleep"],
         translation: "Mana is busy with dance and scouts",
+      },
+      {
+        type: "choice",
+        prompt: "マナの幼少期。「Manaは幼い頃、おかしな格好で寝ていました。」の英文は？",
+        choices: [
+          "When she was little, Mana slept in strange positions.",
+          "When she was little, Mana slept for ten years.",
+          "When she was little, Mana slept on the ceiling.",
+          "When she was little, Mana slept at McDonald's.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "arrange",
+        prompt: "「Otoは父のAyaと同じで毛が濃いです。」を英語にしよう",
+        sentence: ["Oto", "has", "thick", "hair", "like", "Aya"],
+        distractors: ["have", "thin"],
+        translation: "Oto has thick hair like Aya",
       },
     ],
   },
