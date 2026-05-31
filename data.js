@@ -21,10 +21,11 @@
      女性・子ども: Mana   （愛＝娘）
 
    ── ヨウコさん一家・設定メモ ──
-     Yoko : 主人公。52歳。OtoとManaの母。主婦に見えるが実は会社の社長。
-            パートもしている。Aya を愛している。茶色の髪で肩くらいの長さ。
-            夫と出会ったときはジーンズで足を組んでいた。こっそり麦チョコを
-            食べる。全身脱毛している。フォークソング部の保護者会の部長。
+     Yoko : 主人公。54歳（7月に55歳。四捨五入で60歳と言い張る）。OtoとManaの母。
+            主婦に見えるが実は会社の社長。パートもしている。Aya を愛している。
+            茶色の髪で肩くらいの長さ。背中が痛い。夫と出会ったときはジーンズで
+            足を組んでいた。こっそり麦チョコを食べる。全身脱毛している。
+            フォークソング部の保護者会の部長。
      Aya  : 夫。とてもハンサムで自慢の夫。コレステロール・血圧が高い。
             睡眠時無呼吸症候群で寝るとき CPAP マスク。毛が濃い。
      Oto: 息子。17歳。早稲田学院高校3年生。新宿のマクドナルドでバイト。
@@ -102,12 +103,45 @@ const LESSONS = [
       },
       {
         type: "choice",
-        prompt: "「Yokoは52歳ですが、まだまだ頑張っています。」の英文は？",
+        prompt: "「Yokoは54歳ですが、まだまだ頑張っています。」の英文は？",
         choices: [
-          "Yoko is 52, but she still works hard.",
-          "Yoko is 52, but she still sleeps all day.",
-          "Yoko is 52 cats old.",
+          "Yoko is 54, but she still works hard.",
+          "Yoko is 54, but she still sleeps all day.",
+          "Yoko is 54 cats old.",
           "Yoko is 25... maybe.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "7月で一つ年をとる。「Yokoは7月に55歳になります。」の英文は？",
+        choices: [
+          "Yoko turns 55 in July.",
+          "Yoko turns into a dragon in July.",
+          "Yoko turns 15 in July.",
+          "Yoko turns left in July.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "強気の四捨五入。「四捨五入すれば、Yokoは60歳です。」の英文は？",
+        choices: [
+          "Rounded up, Yoko is 60.",
+          "Rounded up, Yoko is 100.",
+          "Rounded up, Yoko is still 25.",
+          "Rounded up, Yoko is a teenager.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "お年頃のお悩み。「Yokoは背中が痛いです。」の英文は？",
+        choices: [
+          "Yoko has a sore back.",
+          "Yoko has a sore dragon.",
+          "Yoko has a spare back.",
+          "Yoko has a back made of broccoli.",
         ],
         answer: 0,
       },

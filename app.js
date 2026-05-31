@@ -472,7 +472,7 @@
       "I love my family very much",
       "I love my family",
       // キャラ紹介
-      "Yoko is 52, but she still works hard.",
+      "Yoko is 54, but she still works hard.",
       "Yoko looks like a housewife, but she is actually a company president.",
       "Aya is very handsome.",
       "Aya wears a CPAP mask when he sleeps.",
