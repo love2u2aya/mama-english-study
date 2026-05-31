@@ -27,7 +27,8 @@
             足を組んでいた。こっそり麦チョコを食べる。全身脱毛している。
             フォークソング部の保護者会の部長。
      Aya  : 夫。とてもハンサムで自慢の夫。コレステロール・血圧が高い。
-            睡眠時無呼吸症候群で寝るとき CPAP マスク。毛が濃い。
+            睡眠時無呼吸症候群で寝るとき CPAP マスク。毛が濃い。老眼鏡デビュー。
+            Yoko と夫婦で全身に置き針をしている。
      Oto: 息子。17歳。早稲田学院高校3年生。新宿のマクドナルドでバイト。
             学校のフォークソング部（実態はバンド：ギター・ベース・歌）。
             元ギター→今はベース。元理系→今は文系。父Ayaと同じで毛が濃い。
@@ -669,6 +670,28 @@ const LESSONS = [
           "Aya becomes a robot when he sleeps.",
           "Aya wears a superhero mask when he sleeps.",
           "Aya flies a plane when he sleeps.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "ついにこの日が…。「Ayaは老眼鏡デビューしました。」の英文は？",
+        choices: [
+          "Aya just got his first pair of reading glasses.",
+          "Aya just got his first pair of roller skates.",
+          "Aya just got his first dragon.",
+          "Aya can suddenly see the future now.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "夫婦で健康ケア。「AyaとYokoは、二人とも全身に置き針をしています。」の英文は？",
+        choices: [
+          "Aya and Yoko both wear press needles all over their bodies.",
+          "Aya and Yoko both wear superhero capes all over their bodies.",
+          "Aya and Yoko both wear broccoli all over their bodies.",
+          "Aya and Yoko both turn into pincushions at night.",
         ],
         answer: 0,
       },
