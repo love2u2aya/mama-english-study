@@ -369,17 +369,20 @@
 
   function nextQuestion() {
     session.answered = false;
+    session.index++;
+    // レッスンを解き終えたら、ライフに関係なく必ず完了させる
+    // （ここでライフ切れを挟むと、最後の問題後にエンドロールへ行けなくなる）。
+    if (session.index >= session.lesson.questions.length) {
+      finishLesson();
+      return;
+    }
+    saveProgress(); // 次の問題へ進んだ時点を記録（再開はここから）
+    // まだ続きの問題があるときだけ、ライフ切れで足止めする
     if (state.hearts <= 0) {
       showNoHeartsModal();
       return;
     }
-    session.index++;
-    if (session.index >= session.lesson.questions.length) {
-      finishLesson();
-    } else {
-      saveProgress(); // 次の問題へ進んだ時点を記録
-      renderQuestion();
-    }
+    renderQuestion();
   }
 
   // ===========================================================
