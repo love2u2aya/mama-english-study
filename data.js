@@ -24,8 +24,8 @@
      Yoko : 主人公。54歳（7月に55歳。四捨五入で60歳と言い張る）。OtoとManaの母。
             主婦に見えるが実は会社の社長。パートもしている。Aya を愛している。
             茶色の髪で肩くらいの長さ。背中が痛い。夫と出会ったときはジーンズで
-            足を組んでいた。こっそり麦チョコを食べる。全身脱毛している。
-            フォークソング部の保護者会の部長。
+            足を組んでいた。こっそり麦チョコやチョコアイスを食べる（ダイエットは明日から）。
+            全身脱毛している。フォークソング部の保護者会の部長。
      Aya  : 夫。とてもハンサムで自慢の夫。コレステロール・血圧が高い。
             睡眠時無呼吸症候群で寝るとき CPAP マスク。毛が濃い。老眼鏡デビュー。
             Yoko と夫婦で全身に置き針をしている。
@@ -40,7 +40,7 @@
             英語を習い、留学を目指す。塾に通う。アクロバットもやる。
             ボーイスカウト（ベンチャースカウト／杉並第5団・東京連盟）で
             菊章を受章。英語発表で日本2位。忙しいけど忙しさを楽しむタイプ。
-            幼い頃はおかしな格好で寝ていた。
+            幼い頃はおかしな格好で寝ていた。広島までバスで行けると思っていた（天然）。
      家族 : 4人家族。会話と笑いを大切にする。料理にはこっそり大量の野菜。
             ハンバーグは肉ではなく野菜でできている。結婚記念日は4月15日。
             クリスマスイブはシェーキーズで家族ディナー。
@@ -205,6 +205,17 @@ const LESSONS = [
           "Yoko gets a full-body massage.",
           "Yoko removes the whole house.",
           "Yoko grows a full beard.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "ダイエットは明日から。「Yokoは今日もチョコアイスを食べました。」の英文は？",
+        choices: [
+          "Yoko ate chocolate ice cream again today.",
+          "Yoko ate a chocolate dragon again today.",
+          "Yoko ate only broccoli again today.",
+          "Yoko ate her diet plan again today.",
         ],
         answer: 0,
       },
@@ -613,6 +624,17 @@ const LESSONS = [
           "When she was little, Mana slept for ten years.",
           "When she was little, Mana slept on the ceiling.",
           "When she was little, Mana slept at McDonald's.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "かわいい勘違い。「Manaは広島までバスで行けると思っていました。」の英文は？",
+        choices: [
+          "Mana thought she could get to Hiroshima by bus.",
+          "Mana thought she could get to Hiroshima by dragon.",
+          "Mana thought Hiroshima was inside the fridge.",
+          "Mana thought the bus could fly to the moon.",
         ],
         answer: 0,
       },
