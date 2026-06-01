@@ -41,6 +41,7 @@
             ボーイスカウト（ベンチャースカウト／杉並第5団・東京連盟）で
             菊章を受章。英語発表で日本2位。忙しいけど忙しさを楽しむタイプ。
             幼い頃はおかしな格好で寝ていた。広島までバスで行けると思っていた（天然）。
+            鳩サブレが大好き。
      家族 : 4人家族。会話と笑いを大切にする。料理にはこっそり大量の野菜。
             ハンバーグは肉ではなく野菜でできている。結婚記念日は4月15日。
             クリスマスイブはシェーキーズで家族ディナー。
@@ -635,6 +636,17 @@ const LESSONS = [
           "Mana thought she could get to Hiroshima by dragon.",
           "Mana thought Hiroshima was inside the fridge.",
           "Mana thought the bus could fly to the moon.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "好物の話。「Manaは鳩サブレが大好きです。」の英文は？",
+        choices: [
+          "Mana loves Hato Sable cookies.",
+          "Mana loves to eat real pigeons.",
+          "Mana loves Hato Sable made of broccoli.",
+          "Mana loves a cookie-shaped dragon.",
         ],
         answer: 0,
       },
