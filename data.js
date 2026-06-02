@@ -44,7 +44,7 @@
             鳩サブレが大好き。
      家族 : 4人家族。会話と笑いを大切にする。料理にはこっそり大量の野菜。
             ハンバーグは肉ではなく野菜でできている。結婚記念日は4月15日。
-            クリスマスイブはシェーキーズで家族ディナー。
+            クリスマスイブはシェーキーズで家族ディナー。1本のガリガリくんを4人で分ける。
    =========================================================== */
 
 const UNIT = {
@@ -776,6 +776,17 @@ const LESSONS = [
           "Yoko is the head chef of the broccoli factory.",
           "Yoko is the head of a secret ninja club.",
           "Yoko is the head, but nobody listens.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "節約＆仲良しの象徴。「家族4人で、1本のガリガリくんを分けて食べます。」の英文は？",
+        choices: [
+          "The four of us share one popsicle.",
+          "The four of us share one tiny dragon.",
+          "The four of us fight over one popsicle.",
+          "The four of us share one whole cow.",
         ],
         answer: 0,
       },
