@@ -758,6 +758,24 @@ const LESSONS = [
         ],
         answer: 0,
       },
+      {
+        type: "choice",
+        prompt: "運動会の日。コレステロールはどこへ…。「Ayaは運動場でマクドナルドの巨大なフライドポテトを食べています。」の英文は？",
+        choices: [
+          "Aya is eating giant McDonald's fries on the sports field.",
+          "Aya is eating giant McDonald's fries instead of running.",
+          "Aya is throwing giant McDonald's fries at the runners.",
+          "Aya is wearing giant McDonald's fries on his head.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "arrange",
+        prompt: "「Ayaはフライドポテトが大好きです。」を英語にしよう",
+        sentence: ["Aya", "loves", "french", "fries"],
+        distractors: ["love", "potato"],
+        translation: "Aya loves french fries",
+      },
     ],
   },
   {
