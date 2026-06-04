@@ -650,6 +650,35 @@ const LESSONS = [
         ],
         answer: 0,
       },
+      {
+        type: "choice",
+        prompt: "運動会の思い出。「Manaは運動会で玉入れをしました。」の英文は？",
+        choices: [
+          "Mana played the beanbag toss game at the sports day.",
+          "Mana played the beanbag toss game with her eyes closed.",
+          "Mana threw the beanbags at the principal.",
+          "Mana ate all the beanbags during the sports day.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "choice",
+        prompt: "奇抜なルール。「ルールが変わっていて、全部の玉を入れたチームが勝ちでした。」の英文は？",
+        choices: [
+          "The rules were unusual: the team that got all the balls in won.",
+          "The rules were unusual: the team that dropped all the balls won.",
+          "The rules were unusual: the first team to fall asleep won.",
+          "The rules were unusual: the team with the most hamburgers won.",
+        ],
+        answer: 0,
+      },
+      {
+        type: "arrange",
+        prompt: "「Manaのチームが玉入れで勝ちました。」を英語にしよう",
+        sentence: ["Mana's", "team", "won", "the", "beanbag", "toss"],
+        distractors: ["win", "lose"],
+        translation: "Mana's team won the beanbag toss",
+      },
     ],
   },
   {
